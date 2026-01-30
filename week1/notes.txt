@@ -1,3 +1,3 @@
-I have learned that Git can be used to track changes to filesI have learned that Git can be used to track changes to filesI have learned that Git can be used to track changes to filesI have learned that Git can be used to track changes to filesI have learned that Git can be used to track changes to files
+I have learned that Git can be used to track changes to filesI have learned that Git can be used to track changes to filesI have learned that Git can be used to track changes to files
 I have learned that Git can be used to track changes to files
 I have learned to push and pull from git
