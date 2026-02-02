@@ -9,7 +9,7 @@ library(naniar)
 library(janitor)
 library(skimr)
 # Load data ====
-mosquito_egg_raw <- read_csv(here("data", "mosquito_egg_data.csv"),
+mosquito_egg_raw <- read_csv(here("data","mosquito_egg_data.csv"),
                              name_repair = janitor::make_clean_names)
 
 # Basic overview ====
