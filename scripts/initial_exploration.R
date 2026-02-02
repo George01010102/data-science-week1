@@ -33,10 +33,17 @@ mosquito_egg_raw |>
 # - What biological system is this?
 #   
 # - What's being measured?
-#   
+
+#     Age, body mass, treatment, eggs laid, eggs hatched
+
 # - How many observations?
-#   
+
+#     8 observations
+
 # - Anything surprising?
-#   
+
+#     p0 value is -93.0 for body_mass_mg
+
 # - Any obvious problems?
-#
+
+#   Means are calculated for all dose types, no means for dose ranges
