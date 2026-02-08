@@ -1,2 +1,46 @@
 penguins_clean_names <- readRDS(url("https://github.com/UEABIO/5023B/raw/refs/heads/2026/files/penguins.RDS"))
 #Do  data cleaning strings task in this script
+library(tidyverse)
+str_trim(" Adelie Penguin (Pygoscelis adeliae) ")
+str_squish("  Adelie    Penguin   (Pygoscelis   adeliae)  ")
+str_trunc("Adelie Penguin (Pygoscelis adeliae)", width = 18, side = "right")
+str_split("Adelie Penguin (Pygoscelis adeliae)", " ")
+str_c("Adelie", "Penguin", sep = "_")
+# Print only unique character strings in this variable
+penguins_clean_names |>  
+  distinct(sex)
+# use mutate and case_when 
+# for a statement that conditionally changes 
+# the names of the values in a variable
+penguins_clean_names |> 
+  mutate(species = case_when(
+    species == "Adelie Penguin (Pygoscelis adeliae)" ~ "Adelie",
+    species == "Gentoo penguin (Pygoscelis papua)" ~ "Gentoo",
+    species == "Chinstrap penguin (Pygoscelis antarctica)" ~ "Chinstrap",
+    .default = as.character(species)
+  )
+  )
+# use mutate and if_else
+# for a statement that conditionally changes 
+# the names of the values in a variable
+penguins_clean_names |> 
+  mutate(sex = if_else(
+    sex == "MALE", "Male", "Female"
+  )
+  )
+# use mutate and case_when 
+# for a statement that conditionally changes 
+# the names of the values in a variable
+penguins_clean_names |> 
+  mutate(species = stringr::word(species, 1)
+  ) |> 
+  mutate(sex = stringr::str_to_title(sex))
+#mutate uppercase
+penguins_clean_names |> 
+  mutate(species = stringr::str_to_upper(species))
+penguins_clean_names |> 
+  separate(
+    species,
+    into = c("species", "full_latin_name"),
+    sep = "(?=\\()"
+  ) 
