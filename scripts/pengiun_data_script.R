@@ -44,3 +44,15 @@ penguins_clean_names |>
     into = c("species", "full_latin_name"),
     sep = "(?=\\()"
   ) 
+str_detect("Genus specificus", "Genus")
+# 3 possible names in species column
+penguins_clean_names |> distinct(species)
+# remove match for Genus (followed by a whitespace)
+str_remove("Genus specificus", pattern = "Genus ")
+penguins_clean_names |> 
+  separate(
+    species,
+    into = c("species", "full_latin_name"),
+    sep = "(?=\\()" # regex pattern: split before the '('
+  ) |> 
+  mutate(full_latin_name = str_remove_all(full_latin_name, "[\\(\\)]"))
