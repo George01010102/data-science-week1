@@ -18,4 +18,3 @@ penguins_clean_names |>
     n = n(),
     n_distinct(individual_id)
   )
-
