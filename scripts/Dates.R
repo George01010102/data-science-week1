@@ -1,5 +1,6 @@
 penguins_clean_names <- readRDS(url("https://github.com/UEABIO/5023B/raw/refs/heads/2026/files/penguins.RDS"))
 
+
 library(lubridate)
 # library(tidyverse)
 date("2017-10-11T14:02:00")
@@ -38,6 +39,7 @@ library(janitor)
 excel_numeric_to_date(42370)
 
 penguins_clean_names <- penguins_clean_names |>
+
   mutate(date_egg = lubridate::ymd(date_egg))
 
 penguins_clean_names |> 
@@ -50,3 +52,5 @@ penguins_clean_names <- penguins_clean_names |>
 # return records after 2008
 penguins_clean_names |>
   filter(date_egg >= ymd("2008-01-01"))
+
+#push test
