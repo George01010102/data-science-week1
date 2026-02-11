@@ -69,3 +69,44 @@ penguins_clean_names |>
 penguins_clean_names |> 
   filter(sex == "MALE", !is.na(date_egg)) |> 
   select(species, sex, date_egg, body_mass_g, island)
+
+# Check which species appear on which islands
+penguins_clean_names |> 
+  count(species, island) |> 
+  pivot_wider(names_from = island, values_from = n, values_fill = 0)
+
+
+# Create flags for different types of potential issues
+penguins_flagged <- penguins_clean_names |> 
+  mutate(
+    # Single-variable flags
+    flag_impossible = case_when(
+      body_mass_g <= 0 ~ "negative_or_zero_mass",
+      flipper_length_mm <= 0 ~ "negative_or_zero_flipper",
+      TRUE ~ NA_character_
+    ),
+    flag_implausible = case_when(
+      body_mass_g < 2000 ~ "suspiciously_light",
+      body_mass_g > 7000 ~ "suspiciously_heavy",
+      TRUE ~ NA_character_
+    ),
+    
+    # Cross-variable flags
+    flag_species_size = case_when(
+      species == "Adelie" & body_mass_g > 5000 ~ "Adelie_too_heavy",
+      species == "Gentoo" & body_mass_g < 4000 ~ "Gentoo_too_light",
+      TRUE ~ NA_character_
+    ),
+    # Any flag present?
+    any_flag = !is.na(flag_impossible) | !is.na(flag_implausible) | 
+      !is.na(flag_species_size) 
+  )
+
+# Summarize flagged observations
+penguins_flagged |> 
+  summarise(
+    n_impossible = sum(!is.na(flag_impossible)),
+    n_implausible = sum(!is.na(flag_implausible)),
+    n_species_size = sum(!is.na(flag_species_size)),
+    total_flagged = sum(any_flag)
+  )
