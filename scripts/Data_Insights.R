@@ -10,6 +10,8 @@ penguins |>
   filter(species == "Adelie") |>
   count()
 
+#testing stuff
+
 #grouping
 penguins |>
   group_by(species) |>
